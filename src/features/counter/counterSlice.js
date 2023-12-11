@@ -22,7 +22,11 @@ export const counterSlice = createSlice({
         state.count = 0;
       }
     },
+    incrementByAddingAmount: (state, action) => {
+      state.count = action.payload;
+    },
   },
 });
-export const { increment, decrement, reset } = counterSlice.actions;
+export const { increment, decrement, reset, incrementByAddingAmount } =
+  counterSlice.actions;
 export default counterSlice.reducer;
