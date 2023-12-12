@@ -60,7 +60,7 @@ const PostsList = () => {
       <div className="mt-3">
         {posts &&
           posts.map((ele, key) => (
-            <div className="">
+            <div className="shadow-lg m-auto p-6 w-[325px]">
               <p className="m-4">
                 {key + 1} {ele.title}
               </p>
