@@ -9,9 +9,13 @@ const postSlice = createSlice({
     postAdded(state, action) {
       state.push(action.payload);
     },
+    postDeleted(state, action) {
+      const postIdToDelete = action.payload;
+      return state.filter((post) => post.id !== postIdToDelete);
+    },
   },
 });
 
-export const { postAdded } = postSlice.actions;
+export const { postAdded, postDeleted } = postSlice.actions;
 export const SelectAllPost = (state) => state.posts;
 export default postSlice.reducer;

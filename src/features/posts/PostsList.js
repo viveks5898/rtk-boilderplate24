@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState } from "react";
-import { SelectAllPost, postAdded } from "./postSlice";
+import { SelectAllPost, postAdded, postDeleted } from "./postSlice";
 import Button from "../../common/Button";
 import { nanoid } from "@reduxjs/toolkit";
 
 const PostsList = () => {
   const posts = useSelector(SelectAllPost);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const dispatch = useDispatch();
@@ -15,12 +16,17 @@ const PostsList = () => {
     if (title && content) {
       dispatch(
         postAdded({
-          id: nanoid,
+          id: nanoid(),
           title: title,
           content: content,
         })
       );
+      setTitle("");
+      setContent("");
     }
+  };
+  const deletePostOnClick = (id) => {
+    dispatch(postDeleted(id));
   };
   return (
     <div className="text-center sm:mt-32">
@@ -30,12 +36,14 @@ const PostsList = () => {
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           onChange={onTitleChanged}
+          value={title}
           placeholder="title......."
         />
         <textarea
           class="shadow resize-y rounded-md appearance-none border  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           col="12"
+          value={content}
           onChange={onContentChanged}
           rows={8}
           placeholder="content"
@@ -48,6 +56,20 @@ const PostsList = () => {
         >
           Add{" "}
         </Button>
+      </div>
+      <div className="mt-3">
+        {posts &&
+          posts.map((ele, key) => (
+            <div className="">
+              <p className="m-4">
+                {key + 1} {ele.title}
+              </p>
+              <p className="m-4">{ele.content}</p>
+              <Button onClick={() => deletePostOnClick(ele.id)}>
+                delete me
+              </Button>
+            </div>
+          ))}
       </div>
     </div>
   );
