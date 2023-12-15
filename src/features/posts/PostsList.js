@@ -66,7 +66,7 @@ const PostsList = () => {
               </p>
               <p className="m-4">{ele.content}</p>
               <Button onClick={() => deletePostOnClick(ele.id)}>
-                delete me
+                delete
               </Button>
             </div>
           ))}
